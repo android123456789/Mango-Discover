@@ -35,15 +35,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let tableViewCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! CustomTableViewCell
         
-//        if(indexPath.row == 0){
-//            //actArray = ["Guitarist & Vocalist in MADBOY/MINK", "Frontman, Guitarist & Vocalist in THE PULP SOCIETY", "", "", ""]
-//        }
-//        else if(indexPath.row == 1){
-//            //actArray = ["Guitarist & Producer in DUALIST INQUIRY", "","","",""]
-//        }
-//        else if(indexPath.row == 2){
-//            //actArray = ["Bassist in KONIAC NET", "Bassist in LAST LIGHT","","",""]
-//        }
         tableViewCell.cellContent(indexPath.row, name: singerNameArray[indexPath.row], image: UIImage(named: singerPicsArray[indexPath.row])!, singerAct: actArray[indexPath.row], singerActName: actName[indexPath.row])
         
         return tableViewCell
