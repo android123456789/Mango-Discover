@@ -8,13 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     var singerNameArray = ["SONU NIGAM", "HIMESH RESHAMIYA", "ATIF ASLAM", "ALI JAFAR", "MIKA SINGH", "HONNY SINGH"]
     var singerPicsArray = ["sonu", "himesh", "atif", "ali", "mika", "honney"]
-    var genereArray = ["LIVE ARTIST", "PRODUCER"]
-    var actArray = ["Guitarist & Vocalist in", "Frontman, Guitarist & Vocalist in", "Guitarist & Producer in", "Bassist & Guitarist & Vocalist in", "Bassist in & Frontman, Guitarist", "Guitarist & Vocalist in"]
-    var actName = ["MADBOY/MINK", "THE PULP SOCIETY", "DUALIST INQUIRY", "KONIAC NET", "LAST LIGHT", "DJ"]
+    
+    
+    @IBOutlet var usersTableView: UITableView!
+    @IBOutlet var genreCV: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.usersTableView.reloadData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.usersTableView.reloadData()
+        self.usersTableView.layoutIfNeeded()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -35,21 +49,38 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let tableViewCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! CustomTableViewCell
         
-        tableViewCell.cellContent(indexPath.row, name: singerNameArray[indexPath.row], image: UIImage(named: singerPicsArray[indexPath.row])!, singerAct: actArray[indexPath.row], singerActName: actName[indexPath.row])
+        tableViewCell.cellContent(indexPath.row, name: singerNameArray[indexPath.row], image: UIImage(named: singerPicsArray[indexPath.row])!)
         
         return tableViewCell
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return genereArray.count
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view = UIView()
+        
+//      actsCV.frame = CGRectMake(0, 0, self.view.bounds.width, 162)
+//      view.addSubview(actsCV)
+        
+        return view
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("genrecell", forIndexPath: indexPath) as! CustomCollectionViewCell
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        cell.cellContent(indexPath.row, name: genereArray[indexPath.row])
+        var collectionViewRowCount : CGFloat = 0
         
-        return cell
+        
+        if CGFloat(12) % 3 == 0 {
+            collectionViewRowCount = CGFloat(12) / 3
+        }
+        else {
+            collectionViewRowCount = (CGFloat(12)) + 1
+        }
+        
+        let height : CGFloat = (collectionViewRowCount * 10) + ((collectionViewRowCount - 1) * 10) + 580
+        
+        return height;
+        
     }
+    
 }
 

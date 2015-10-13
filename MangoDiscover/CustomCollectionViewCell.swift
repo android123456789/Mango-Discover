@@ -14,5 +14,6 @@ class CustomCollectionViewCell: UICollectionViewCell {
 
     func cellContent(index: Int, name: String){
         self.genreTxt.text = name
+        //self.genreTxt.sizeToFit()
     }
 }
